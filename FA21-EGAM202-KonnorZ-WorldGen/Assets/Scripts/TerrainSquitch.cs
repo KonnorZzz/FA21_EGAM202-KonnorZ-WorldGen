@@ -38,6 +38,9 @@ public class TerrainSquitch : MonoBehaviour
     [Header("Random Walk Profile Settings")]
     public float RandomWalk_StartingElevation;
     public float RandomWalk_MaxStepSize;
+
+    [Header("Single Step Settings")]
+    public float SingleStep_MaxStepHeight;
     
 
     public void Pip()
@@ -238,6 +241,46 @@ public class TerrainSquitch : MonoBehaviour
 
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    public void SingleStep()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos = Vector3.zero;
+
+        Plane dividingPlane;
+        Vector3 planePoint, planeNormal;
+        float stepSize;
+
+        planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
+        planeNormal = Random.onUnitSphere;
+        dividingPlane = new Plane(planeNormal, planePoint);
+
+        stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
+        for(mapPos.x = 0;mapPos.x < heightMapLength; mapPos.x++)
+        {
+            for (mapPos.z = 0;mapPos.z < heightMapWidth; mapPos.z++)
+            {
+                if (dividingPlane.GetSide(mapPos))
+                {
+                    heights[(int)mapPos.z,(int)mapPos.x] += stepSize;
+                }
+            }
+        }
+
     }
 
 

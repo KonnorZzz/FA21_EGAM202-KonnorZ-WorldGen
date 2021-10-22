@@ -40,5 +40,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.RandomWalkProfile();
         }
+        if (GUILayout.Button("Single Step"))
+        {
+            squitch.SingleStep();
+        }
     }
 }
