@@ -44,5 +44,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.SingleStep();
         }
+        if (GUILayout.Button("Many Steps"))
+        {
+            squitch.ManySteps();
+        }
     }
 }

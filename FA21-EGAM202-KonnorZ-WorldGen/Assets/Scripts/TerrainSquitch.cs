@@ -41,6 +41,10 @@ public class TerrainSquitch : MonoBehaviour
 
     [Header("Single Step Settings")]
     public float SingleStep_MaxStepHeight;
+
+    [Header("Many Step Up Settings")]
+    public float ManySteps_MaxStepHeight;
+    public float ManySteps_NSteps;
     
 
     public void Pip()
@@ -277,6 +281,54 @@ public class TerrainSquitch : MonoBehaviour
                 if (dividingPlane.GetSide(mapPos))
                 {
                     heights[(int)mapPos.z,(int)mapPos.x] += stepSize;
+                }
+            }
+        }
+
+    }
+
+    public void ManySteps()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos = Vector3.zero;
+
+        Plane dividingPlane;
+        Vector3 planePoint, planeNormal;
+        float stepSize;
+
+        planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
+        planeNormal = Random.onUnitSphere;
+        dividingPlane = new Plane(planeNormal, planePoint);
+
+        for (int stepCount = 0; stepCount < ManySteps_NSteps; stepCount++)
+        {
+            planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
+            planeNormal = Random.onUnitSphere;
+            dividingPlane = new Plane(planeNormal, planePoint);
+
+            stepSize = Random.Range(-ManySteps_MaxStepHeight, ManySteps_MaxStepHeight);
+
+            for (mapPos.z = 0; mapPos.x < heightMapLength; mapPos.x++)
+            {
+                for(mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
+                {
+                    if (dividingPlane.GetSide(mapPos))
+                    {
+                        heights[(int)mapPos.z, (int)mapPos.x] += stepSize;
+                    }
                 }
             }
         }
