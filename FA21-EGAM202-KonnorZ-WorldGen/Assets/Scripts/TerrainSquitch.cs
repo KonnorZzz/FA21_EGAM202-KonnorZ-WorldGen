@@ -263,20 +263,21 @@ public class TerrainSquitch : MonoBehaviour
         float[,] heights;
         heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
 
-        Vector3 mapPos = Vector3.zero;
+        Vector3 mapPos;
+        mapPos = Vector3.zero;
 
         Plane dividingPlane;
         Vector3 planePoint, planeNormal;
-        float stepSize;
-
-        planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
+        planePoint = new Vector3(Random.Range(0, heightMapWidth), Random.Range(0, 100), Random.Range(0, heightMapLength));
         planeNormal = Random.onUnitSphere;
-        dividingPlane = new Plane(planeNormal, planePoint);
 
-        stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
-        for(mapPos.x = 0;mapPos.x < heightMapLength; mapPos.x++)
+        dividingPlane = new Plane(planeNormal, planePoint);
+        float stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
+        //stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
+
+        for(mapPos.z = 0;mapPos.z < heightMapLength; mapPos.z++)
         {
-            for (mapPos.z = 0;mapPos.z < heightMapWidth; mapPos.z++)
+            for (mapPos.x = 0;mapPos.x < heightMapWidth; mapPos.x++)
             {
                 if (dividingPlane.GetSide(mapPos))
                 {
@@ -309,9 +310,6 @@ public class TerrainSquitch : MonoBehaviour
         Vector3 planePoint, planeNormal;
         float stepSize;
 
-        planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
-        planeNormal = Random.onUnitSphere;
-        dividingPlane = new Plane(planeNormal, planePoint);
 
         for (int stepCount = 0; stepCount < ManySteps_NSteps; stepCount++)
         {
