@@ -33,6 +33,12 @@ public class TerrainSquitch : MonoBehaviour
     public int r;
     public float Cyl_Height;
 
+    //[Header("ExtrudeTraingle")]
+
+    [Header("Random Walk Profile Settings")]
+    public float RandomWalk_StartingElevation;
+    public float RandomWalk_MaxStepSize;
+    
 
     public void Pip()
     {
@@ -168,6 +174,67 @@ public class TerrainSquitch : MonoBehaviour
                     heights[(int)mapPos.z,(int)mapPos.x] = Cyl_Height;
                 }
             }
+
+        }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    public void RandomIndependentProfile()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos;
+        float heightAtThisZ;
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
+        {
+            heightAtThisZ = Random.value;
+            for(mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
+            {
+                heights[(int)mapPos.z, (int)mapPos.x] = heightAtThisZ;
+            }
+
+        }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    public void RandomWalkProfile()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos;
+        float heightAtThisZ = RandomWalk_StartingElevation;
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
+        {
+            heightAtThisZ += Random.Range(-RandomWalk_MaxStepSize, RandomWalk_MaxStepSize);
+            for (mapPos.x = 0; mapPos.x < heightMapLength; mapPos.x++)
+            {
+                heights[(int)mapPos.z, (int)mapPos.x] = heightAtThisZ;
+            }
+            
 
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);

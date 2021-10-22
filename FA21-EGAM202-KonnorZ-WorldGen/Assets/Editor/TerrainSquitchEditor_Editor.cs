@@ -32,5 +32,13 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.ExtrudeCylinder();
         }
+        if (GUILayout.Button("Random Independent Profile"))
+        {
+            squitch.RandomIndependentProfile();
+        }
+        if (GUILayout.Button("Random Walk Profile"))
+        {
+            squitch.RandomWalkProfile();
+        }
     }
 }
