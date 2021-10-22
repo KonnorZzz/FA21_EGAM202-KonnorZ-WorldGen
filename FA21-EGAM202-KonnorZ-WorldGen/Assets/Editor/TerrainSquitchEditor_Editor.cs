@@ -28,5 +28,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.ThreeStairs();
         }
+        if (GUILayout.Button("Extrude Cylinder"))
+        {
+            squitch.ExtrudeCylinder();
+        }
     }
 }

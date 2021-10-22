@@ -26,6 +26,13 @@ public class TerrainSquitch : MonoBehaviour
         Box_xMax = 100;
     public float Box_Height;
 
+    [Header("ExtrudeCylinder")]
+    public int Cyl_x;
+    public int Cyl_y;
+    public int Cyl_z;
+    public int r;
+    public float Cyl_Height;
+
 
     public void Pip()
     {
@@ -121,7 +128,7 @@ public class TerrainSquitch : MonoBehaviour
         //Setup vars for second step
         Box_zMin = 0;
         Box_zMax = 10;
-        Box_xMax = 10;
+        Box_xMin = 10;
         Box_xMax = 20;
         Box_Height = .2f;
         ExtrudeBox();
@@ -129,9 +136,42 @@ public class TerrainSquitch : MonoBehaviour
         //Setup vars for thrid step
         Box_zMin = 0;
         Box_zMax = 10;
-        Box_xMax = 20;
+        Box_xMin = 20;
         Box_xMax = 30;
-        Box_Height = .2f;
+        Box_Height = .3f;
         ExtrudeBox();
     }
+
+    public void ExtrudeCylinder()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos;
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
+        {
+            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
+            {
+                if ((mapPos.z - Cyl_z) * (mapPos.z - Cyl_z)+(mapPos.x - Cyl_x)*(mapPos.x - Cyl_x) <= r * r)
+                {
+                    heights[(int)mapPos.z,(int)mapPos.x] = Cyl_Height;
+                }
+            }
+
+        }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+
 }

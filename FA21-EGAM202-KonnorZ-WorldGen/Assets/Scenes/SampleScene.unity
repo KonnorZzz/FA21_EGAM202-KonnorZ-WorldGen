@@ -330,9 +330,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc4f65770c43d94583467c3bb46b389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pip_X: 1
-  Pip_Z: 1
-  Pip_Height: 5
+  Pip_X: 100
+  Pip_Z: 100
+  Pip_Height: 0
+  SetElevation_Elevation: 0
+  Box_zMin: 0
+  Box_zMax: 10
+  Box_xMin: 20
+  Box_xMax: 30
+  Box_Height: 0
+  Cyl_x: 10
+  Cyl_y: 10
+  Cyl_z: 10
+  r: 10
+  Cyl_Height: 0
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0
