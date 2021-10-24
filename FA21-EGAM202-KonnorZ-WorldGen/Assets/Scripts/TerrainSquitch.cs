@@ -45,8 +45,13 @@ public class TerrainSquitch : MonoBehaviour
     [Header("Many Step Up Settings")]
     public float ManySteps_MaxStepHeight;
     public float ManySteps_NSteps;
-    
 
+    [Header("SmoothFunction")]
+    public int smoothAmount = 2;
+    public TerrainData terrainData;
+
+
+    
     public void Pip()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
@@ -333,6 +338,64 @@ public class TerrainSquitch : MonoBehaviour
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);
 
+    }
+
+    List<Vector2> GenerateNeighbours(Vector2 pos, int width, int height)
+    {
+        List<Vector2> neighbours = new List<Vector2>();
+        for (int y = -1; y < 2; y++)
+        {
+            for (int x = -1; x < 2; x++)
+            {
+                if (!(x == 0 && y == 0))
+                {
+                    Vector2 nPos = new Vector2(Mathf.Clamp(pos.x + x, 0, width - 1),
+                                                Mathf.Clamp(pos.y + y, 0, height - 1));
+                    if (!neighbours.Contains(nPos))
+                        neighbours.Add(nPos);
+                }
+            }
+        }
+        return neighbours;
+    }
+
+
+    public void SmoothFunction()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        terrainData = Terrain.activeTerrain.terrainData;
+        float[,] heights = thisTerrain.terrainData.GetHeights(0,0,terrainData.heightmapResolution, terrainData.heightmapResolution);
+
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        for(int s = 0; s < smoothAmount; s++)
+        {
+            for(int y = 0;y < heightMapWidth; y++)
+            {
+                for(int x = 0; x < heightMapLength; x++)
+                {
+                    float avgHeight = heights[x, y];
+                    List<Vector2> neighbours = GenerateNeighbours(new Vector2(x, y), heightMapWidth, heightMapLength);
+
+                    foreach(Vector2 n in neighbours)
+                    {
+                        avgHeight += heights[(int)n.x, (int)n.y];
+                    }
+                    heights[x, y] = avgHeight / ((float)neighbours.Count + 1);
+                }
+            }
+        }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
     }
 
 

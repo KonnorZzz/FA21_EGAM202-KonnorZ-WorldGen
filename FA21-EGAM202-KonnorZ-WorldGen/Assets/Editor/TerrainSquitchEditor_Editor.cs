@@ -48,5 +48,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.ManySteps();
         }
+        if (GUILayout.Button("Smooth Function"))
+        {
+            squitch.SmoothFunction();
+        }
     }
 }
