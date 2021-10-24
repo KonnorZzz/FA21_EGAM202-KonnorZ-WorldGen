@@ -346,8 +346,8 @@ MonoBehaviour:
   Cyl_Height: 0
   RandomWalk_StartingElevation: 0
   RandomWalk_MaxStepSize: 0
-  SingleStep_MaxStepHeight: 10
-  ManySteps_MaxStepHeight: 0.1
+  SingleStep_MaxStepHeight: 0
+  ManySteps_MaxStepHeight: 0.7
   ManySteps_NSteps: 100
 --- !u!154 &2000841082
 TerrainCollider:

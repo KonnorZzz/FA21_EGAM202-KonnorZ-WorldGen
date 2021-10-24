@@ -285,6 +285,7 @@ public class TerrainSquitch : MonoBehaviour
                 }
             }
         }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
 
     }
 
@@ -330,6 +331,7 @@ public class TerrainSquitch : MonoBehaviour
                 }
             }
         }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
 
     }
 
