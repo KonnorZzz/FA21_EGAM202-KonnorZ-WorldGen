@@ -56,5 +56,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.InstallWater();
         }
+
+        //if (GUILayout.Button("Fill Niche"))
+        //{
+        //    squitch.FillNiche();
+        //}
     }
 }

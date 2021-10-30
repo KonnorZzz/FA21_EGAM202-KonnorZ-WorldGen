@@ -347,10 +347,15 @@ MonoBehaviour:
   RandomWalk_StartingElevation: 0
   RandomWalk_MaxStepSize: 0
   SingleStep_MaxStepHeight: 0
-  ManySteps_MaxStepHeight: 0.5
-  ManySteps_NSteps: 10
+  ManySteps_MaxStepHeight: 0.05
+  ManySteps_NSteps: 1000
   smoothAmount: 100
   terrainData: {fileID: 15600000, guid: c4dd08687eff8024880b5a6d5c5912b9, type: 2}
+  InstallWater_WaterLevel: 3
+  WaterPrefab: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+  WaterPrefabSize: 20
+  FillNiche_Niche: {fileID: 0}
+  FillNiche_ParentTransform: {fileID: 0}
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -409,3 +414,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7848249852839457748
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 871
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 666
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_Name
+      value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}

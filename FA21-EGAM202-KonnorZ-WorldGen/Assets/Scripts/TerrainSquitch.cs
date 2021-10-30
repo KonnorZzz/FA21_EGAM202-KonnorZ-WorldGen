@@ -54,7 +54,6 @@ public class TerrainSquitch : MonoBehaviour
     public int InstallWater_WaterLevel;
     public GameObject WaterPrefab;
     public float WaterPrefabSize;
-    public Transform WaterParent;
 
     [Header("Fill Niche Settings")]
     public Niche FillNiche_Niche;
@@ -434,7 +433,7 @@ public class TerrainSquitch : MonoBehaviour
                 worldPos.y = thisTerrain.SampleHeight(worldPos);
                 if(worldPos.y < InstallWater_WaterLevel)
                 {
-                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel, worldPos.z), Quaternion.identity, WaterParent);
+                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel,worldPos.z), Quaternion. identity);
                 }
             }
         }
@@ -466,7 +465,7 @@ public class TerrainSquitch : MonoBehaviour
                 worldPos.y = thisTerrain.SampleHeight(worldPos);
                 if(worldPos.x > FillNiche_Niche.MinX && worldPos.x < FillNiche_Niche.MaxX &&
                     worldPos.z > FillNiche_Niche.MinZ && worldPos.z < FillNiche_Niche.MaxZ &&
-                    worldPos.y > FillNiche_Niche.MinElev && worldPos.y < FillNiche().MaxElev)
+                    worldPos.y > FillNiche_Niche.MinElev && worldPos.y < FillNiche_Niche.MaxElev)
                 {
                     if(Random.value < FillNiche_Niche.ProbabilityPerMeter)
                     {
