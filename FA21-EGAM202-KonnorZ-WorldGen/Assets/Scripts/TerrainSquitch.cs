@@ -46,9 +46,15 @@ public class TerrainSquitch : MonoBehaviour
     public float ManySteps_MaxStepHeight;
     public float ManySteps_NSteps;
 
-    [Header("SmoothFunction")]
+    [Header("Smooth Function")]
     public int smoothAmount = 2;
     public TerrainData terrainData;
+
+    [Header("install Water Settings")]
+    public int InstallWater_WaterLevel;
+    public GameObject WaterPrefab;
+    public float WaterPrefabSize;
+    public Transform WaterParent;
 
 
     
@@ -396,6 +402,38 @@ public class TerrainSquitch : MonoBehaviour
             }
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);
+    }
+
+    public void InstallWater()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float heightMapWidthWorld, heightMapLengthWorld;
+        heightMapWidthWorld = heightMapWidth * thisTerrain.terrainData.heightmapScale.x;
+        heightMapLengthWorld = heightMapLength * thisTerrain.terrainData.heightmapScale.z;
+
+        Vector3 worldPos;
+        worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
+        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld;worldPos.z += WaterPrefabSize)
+        {
+            for(worldPos.x=0;worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
+            {
+                worldPos.y = thisTerrain.SampleHeight(worldPos);
+                if(worldPos.y < InstallWater_WaterLevel)
+                {
+                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel, worldPos.z), Quaternion.identity, WaterParent);
+                }
+            }
+        }
     }
 
 

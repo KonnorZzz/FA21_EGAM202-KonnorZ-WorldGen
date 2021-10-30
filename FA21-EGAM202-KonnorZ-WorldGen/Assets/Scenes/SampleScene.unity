@@ -349,7 +349,7 @@ MonoBehaviour:
   SingleStep_MaxStepHeight: 0
   ManySteps_MaxStepHeight: 0.5
   ManySteps_NSteps: 10
-  smoothAmount: 2
+  smoothAmount: 100
   terrainData: {fileID: 15600000, guid: c4dd08687eff8024880b5a6d5c5912b9, type: 2}
 --- !u!154 &2000841082
 TerrainCollider:
