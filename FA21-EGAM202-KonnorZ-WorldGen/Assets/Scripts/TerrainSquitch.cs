@@ -56,6 +56,10 @@ public class TerrainSquitch : MonoBehaviour
     public float WaterPrefabSize;
     public Transform WaterParent;
 
+    [Header("Fill Niche Settings")]
+    public Niche FillNiche_Niche;
+    public Transform FillNiche_ParentTransform;
+
 
     
     public void Pip()
@@ -431,6 +435,43 @@ public class TerrainSquitch : MonoBehaviour
                 if(worldPos.y < InstallWater_WaterLevel)
                 {
                     Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel, worldPos.z), Quaternion.identity, WaterParent);
+                }
+            }
+        }
+    }
+
+    public void FillNiche()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float heightMapWidthWorld, heightMapLengthWorld;
+        heightMapWidthWorld = heightMapWidth * thisTerrain.terrainData.heightmapScale.x;
+        heightMapLengthWorld = heightMapLength * thisTerrain.terrainData.heightmapScale.z;
+
+        Vector3 worldPos;
+        worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
+        for(worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
+        {
+            for (worldPos.x = 0;worldPos.x < heightMapWidthWorld;worldPos.x += WaterPrefabSize)
+            {
+                worldPos.y = thisTerrain.SampleHeight(worldPos);
+                if(worldPos.x > FillNiche_Niche.MinX && worldPos.x < FillNiche_Niche.MaxX &&
+                    worldPos.z > FillNiche_Niche.MinZ && worldPos.z < FillNiche_Niche.MaxZ &&
+                    worldPos.y > FillNiche_Niche.MinElev && worldPos.y < FillNiche().MaxElev)
+                {
+                    if(Random.value < FillNiche_Niche.ProbabilityPerMeter)
+                    {
+                        Instantiate(FillNiche_Niche.NicheOccupant, worldPos, Quaternion.identity, FillNiche_ParentTransform);
+                    }
                 }
             }
         }

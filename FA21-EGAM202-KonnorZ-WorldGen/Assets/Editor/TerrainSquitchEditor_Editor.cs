@@ -52,5 +52,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.SmoothFunction();
         }
+        if (GUILayout.Button("Install Water"))
+        {
+            squitch.InstallWater();
+        }
     }
 }
