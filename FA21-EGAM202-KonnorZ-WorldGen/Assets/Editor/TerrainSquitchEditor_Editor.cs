@@ -56,10 +56,14 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.InstallWater();
         }
+        if (GUILayout.Button("Fill Niche"))
+        {
+            squitch.FillNiche();
+        }
+        if (GUILayout.Button("King Konnor Creates City"))
+        {
+            squitch.CityofKonnor();
+        }
 
-        //if (GUILayout.Button("Fill Niche"))
-        //{
-        //    squitch.FillNiche();
-        //}
     }
 }

@@ -123,6 +123,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &432389386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432389387}
+  m_Layer: 0
+  m_Name: AllWater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &432389387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432389386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2000841084}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,14 +377,15 @@ MonoBehaviour:
   RandomWalk_StartingElevation: 0
   RandomWalk_MaxStepSize: 0
   SingleStep_MaxStepHeight: 0
-  ManySteps_MaxStepHeight: 0.05
-  ManySteps_NSteps: 1000
-  smoothAmount: 100
+  ManySteps_MaxStepHeight: 0.3
+  ManySteps_NSteps: 100
+  smoothAmount: 20
   terrainData: {fileID: 15600000, guid: c4dd08687eff8024880b5a6d5c5912b9, type: 2}
   InstallWater_WaterLevel: 3
   WaterPrefab: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
   WaterPrefabSize: 20
-  FillNiche_Niche: {fileID: 0}
+  InstallWater_Parent: {fileID: 432389387}
+  FillNiche_Niche: {fileID: 11400000, guid: f4ac122566c6d314f9f5d2ad3d56ba1c, type: 2}
   FillNiche_ParentTransform: {fileID: 0}
 --- !u!154 &2000841082
 TerrainCollider:
@@ -410,68 +441,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 432389387}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7848249852839457748
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 871
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 666
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985532938156902394, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_Name
-      value: Water
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}

@@ -54,6 +54,7 @@ public class TerrainSquitch : MonoBehaviour
     public int InstallWater_WaterLevel;
     public GameObject WaterPrefab;
     public float WaterPrefabSize;
+    public Transform InstallWater_Parent;
 
     [Header("Fill Niche Settings")]
     public Niche FillNiche_Niche;
@@ -433,7 +434,7 @@ public class TerrainSquitch : MonoBehaviour
                 worldPos.y = thisTerrain.SampleHeight(worldPos);
                 if(worldPos.y < InstallWater_WaterLevel)
                 {
-                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel,worldPos.z), Quaternion. identity);
+                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel,worldPos.z), Quaternion. identity,InstallWater_Parent);
                 }
             }
         }
@@ -474,6 +475,47 @@ public class TerrainSquitch : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CityofKonnor()
+    {
+        SetElevation_Elevation = 0;
+        SetElevation();
+
+        ManySteps_MaxStepHeight = 0.08f;
+        ManySteps_NSteps = 200;
+        ManySteps();
+
+        smoothAmount = 20;
+        SmoothFunction();
+
+        ManySteps_MaxStepHeight = 0.12f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
+        ManySteps();
+
+
+
+        InstallWater();
+        FillNiche();
     }
 
 
