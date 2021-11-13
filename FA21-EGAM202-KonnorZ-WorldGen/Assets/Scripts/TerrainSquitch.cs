@@ -73,6 +73,11 @@ public class TerrainSquitch : MonoBehaviour
     public float MaxHeight = 50.0f;
     public bool resetTerrain = true;
 
+    [Header("Mountain")]
+    public float MoutainMinHeight = 0.1f;
+    public float MountainMaxHeight = 0.5f;
+    public bool resetMountain = true;
+
 
 
     public void GenerateHills()
@@ -643,6 +648,57 @@ public class TerrainSquitch : MonoBehaviour
         if (heightMap[(int)peak.x, (int)peak.z] < peak.y)
         {
             heightMap[(int)peak.x, (int)peak.z] = peak.y;
+        }
+
+        terrainData.SetHeights(0, 0, heightMap);
+    }
+
+    public void Mountain()
+    {
+        float[,] GetHeightMap()
+        {
+            if (!resetMountain)
+            {
+                return terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+            }
+            else
+            {
+                return new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+            }
+        }
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        float[,] heightMap = GetHeightMap();
+        Vector3 peak = new Vector3(Random.Range(0, heightMapWidth), Random.Range(MinHeight, MaxHeight), Random.Range(0, heightMapLength));
+        if (heightMap[(int)peak.x, (int)peak.z] < peak.y)
+        {
+            heightMap[(int)peak.x, (int)peak.z] = peak.y;
+        }
+        //peak location on the height map
+        Vector2 peakLocation = new Vector2(peak.x, peak.z);
+        float maxDistance = Vector2.Distance(new Vector2(0, 0), new Vector2(heightMapWidth, heightMapLength));
+        for (int y = 0; y < heightMapLength; y++)
+        {
+            for(int x = 0; x < heightMapWidth; x++)
+            {
+                if(!(x == peak.x && y == peak.z))
+                {
+                    float distanceToPeak = Vector2.Distance(peakLocation, new Vector2(x, y));
+                    heightMap[x, y] = peak.y - (distanceToPeak / maxDistance);
+                }
+            }
         }
         terrainData.SetHeights(0, 0, heightMap);
     }

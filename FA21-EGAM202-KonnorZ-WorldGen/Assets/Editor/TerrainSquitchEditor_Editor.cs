@@ -72,6 +72,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.TriangularColumn();
         }
+        if (GUILayout.Button("Mountain"))
+        {
+            squitch.Mountain();
+        }
 
     }
 }
