@@ -68,6 +68,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.GenerateHills();
         }
+        if (GUILayout.Button("Triangular Column"))
+        {
+            squitch.TriangularColumn();
+        }
 
     }
 }

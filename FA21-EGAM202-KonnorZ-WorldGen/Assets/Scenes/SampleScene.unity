@@ -393,6 +393,9 @@ MonoBehaviour:
   scale: 35
   offsetX: 318.85535
   offsetY: 7182.323
+  MinHeight: 100
+  MaxHeight: 500
+  resetTerrain: 0
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0

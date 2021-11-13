@@ -68,7 +68,12 @@ public class TerrainSquitch : MonoBehaviour
     public float offsetX;
     public float offsetY;
 
-    
+    [Header("Triangular column")]
+    public float MinHeight = 10.0f;
+    public float MaxHeight = 50.0f;
+    public bool resetTerrain = true;
+
+
 
     public void GenerateHills()
     {
@@ -603,6 +608,43 @@ public class TerrainSquitch : MonoBehaviour
 
         InstallWater();
         FillNiche();
+    }
+
+    public void TriangularColumn()
+    {
+        
+        float[,] GetHeightMap()
+        {
+            if (!resetTerrain)
+            {
+                return terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+            }
+            else
+            {
+                return new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+            }
+        }
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        float[,] heightMap = GetHeightMap();
+        Vector3 peak = new Vector3(Random.Range(0, terrainData.heightmapResolution), Random.Range(MinHeight, MaxHeight), Random.Range(0, terrainData.heightmapResolution));
+        if (heightMap[(int)peak.x, (int)peak.z] < peak.y)
+        {
+            heightMap[(int)peak.x, (int)peak.z] = peak.y;
+        }
+        terrainData.SetHeights(0, 0, heightMap);
     }
 
 
