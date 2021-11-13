@@ -60,8 +60,51 @@ public class TerrainSquitch : MonoBehaviour
     public Niche FillNiche_Niche;
     public Transform FillNiche_ParentTransform;
 
+    [Header("Terrain Generator")]
+    public int depth = 20;
+    public int width = 256;
+    public int height = 256;
+    public float scale = 20f;
+    public float offsetX;
+    public float offsetY;
 
     
+
+    public void GenerateHills()
+    {
+        offsetX = Random.Range(0f, 9999f);
+        offsetY = Random.Range(0f, 9999f);
+        Terrain thisTerrain = GetComponent<Terrain>();
+        thisTerrain.terrainData = GenerateTerrain(thisTerrain.terrainData);
+        TerrainData GenerateTerrain(TerrainData terrainData)
+        {
+            terrainData.heightmapResolution = width + 1;
+            terrainData.size = new Vector3(width, depth, height);
+            terrainData.SetHeights(0, 0, GenerateHeights());
+            return terrainData;
+        }
+        float[,] GenerateHeights()
+        {
+            float[,] heights = new float[width, height];
+            for(int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    heights[x, y] = CalculateHeight(x, y);
+                }
+            }
+            return heights;
+        }
+        float CalculateHeight (int x, int y)
+        {
+            float xCoord = (float)x / width * scale;
+            float yCoord = (float)y / height * scale;
+            return Mathf.PerlinNoise(xCoord, yCoord);
+        }
+        
+    }
+    
+
     public void Pip()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
@@ -475,6 +518,50 @@ public class TerrainSquitch : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void MakeItSnow()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        int alphaMapSize;
+        alphaMapSize = thisTerrain.terrainData.alphamapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + alphaMapSize + "and length = " + alphaMapSize);
+
+        terrainData = Terrain.activeTerrain.terrainData;
+        float[,] heights = thisTerrain.terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        const int GRASS = 0;
+        const int DANS = 1;
+        const int SNOW = 2;
+
+        const int NTERRAINLAYERS = 3;
+
+        float[,,] alphaAtMapPos = new float[alphaMapSize, alphaMapSize, NTERRAINLAYERS];
+        Vector3 mapPos;
+        mapPos.z = 0;
+        for (mapPos.z = 0; mapPos.z < alphaMapSize; mapPos.z++)
+        {
+            for(mapPos.x = 0; mapPos.x < alphaMapSize; mapPos.x++)
+            {
+                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
+                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
+                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
+            }
+        }
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
+
     }
 
     public void CityofKonnor()

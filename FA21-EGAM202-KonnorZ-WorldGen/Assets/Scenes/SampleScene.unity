@@ -387,6 +387,12 @@ MonoBehaviour:
   InstallWater_Parent: {fileID: 432389387}
   FillNiche_Niche: {fileID: 11400000, guid: f4ac122566c6d314f9f5d2ad3d56ba1c, type: 2}
   FillNiche_ParentTransform: {fileID: 0}
+  depth: 20
+  width: 513
+  height: 513
+  scale: 35
+  offsetX: 318.85535
+  offsetY: 7182.323
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0
