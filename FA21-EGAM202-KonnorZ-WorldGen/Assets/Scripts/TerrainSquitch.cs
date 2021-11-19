@@ -78,6 +78,10 @@ public class TerrainSquitch : MonoBehaviour
     public float MountainMaxHeight = 0.5f;
     public bool resetMountain = true;
 
+    [Header("Fill Sheep")]
+    public Niche FillNiche_Sheep;
+    public Transform FillSheep_ParentTransform;
+
 
 
     public void GenerateHills()
@@ -388,7 +392,7 @@ public class TerrainSquitch : MonoBehaviour
 
             stepSize = Random.Range(-ManySteps_MaxStepHeight, ManySteps_MaxStepHeight);
 
-            for (mapPos.z = 0; mapPos.x < heightMapLength; mapPos.x++)
+            for (mapPos.x = 0; mapPos.x < heightMapLength; mapPos.x++)
             {
                 for(mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
                 {
@@ -530,6 +534,43 @@ public class TerrainSquitch : MonoBehaviour
         }
     }
 
+    public void FillSheep()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float heightMapWidthWorld, heightMapLengthWorld;
+        heightMapWidthWorld = heightMapWidth * thisTerrain.terrainData.heightmapScale.x;
+        heightMapLengthWorld = heightMapLength * thisTerrain.terrainData.heightmapScale.z;
+
+        Vector3 worldPos;
+        worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
+        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
+        {
+            for (worldPos.x = 0; worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
+            {
+                worldPos.y = thisTerrain.SampleHeight(worldPos);
+                if (worldPos.x > FillNiche_Sheep.MinX && worldPos.x < FillNiche_Sheep.MaxX &&
+                    worldPos.z > FillNiche_Sheep.MinZ && worldPos.z < FillNiche_Sheep.MaxZ &&
+                    worldPos.y > FillNiche_Sheep.MinElev && worldPos.y < FillNiche_Sheep.MaxElev)
+                {
+                    if (Random.value < FillNiche_Sheep.ProbabilityPerMeter)
+                    {
+                        Instantiate(FillNiche_Sheep.NicheOccupant, worldPos, Quaternion.identity, FillSheep_ParentTransform);
+                    }
+                }
+            }
+        }
+    }
+
     public void MakeItSnow()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
@@ -585,31 +626,6 @@ public class TerrainSquitch : MonoBehaviour
 
         smoothAmount = 20;
         SmoothFunction();
-
-        ManySteps_MaxStepHeight = 0.12f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-        ManySteps_MaxStepHeight = 0.3f;
-        ManySteps_NSteps = 100;
-        ManySteps();
-
-
 
         InstallWater();
         FillNiche();

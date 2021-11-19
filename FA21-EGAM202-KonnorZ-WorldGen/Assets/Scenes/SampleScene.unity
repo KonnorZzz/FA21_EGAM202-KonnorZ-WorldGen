@@ -329,6 +329,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1662689118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662689119}
+  m_Layer: 0
+  m_Name: AllCrystal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1662689119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662689118}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 39.725304, y: 56.1109, z: 416.19025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2000841084}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1755166668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1755166669}
+  m_Layer: 0
+  m_Name: AllSheep
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1755166669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755166668}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 39.725304, y: 56.1109, z: 416.19025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2000841084}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2000841080
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,16 +446,21 @@ MonoBehaviour:
   WaterPrefabSize: 20
   InstallWater_Parent: {fileID: 432389387}
   FillNiche_Niche: {fileID: 11400000, guid: f4ac122566c6d314f9f5d2ad3d56ba1c, type: 2}
-  FillNiche_ParentTransform: {fileID: 0}
+  FillNiche_ParentTransform: {fileID: 1662689119}
   depth: 20
   width: 513
   height: 513
   scale: 35
-  offsetX: 318.85535
-  offsetY: 7182.323
+  offsetX: 7838.07
+  offsetY: 407.1925
   MinHeight: 100
   MaxHeight: 500
-  resetTerrain: 0
+  resetTerrain: 1
+  MoutainMinHeight: 0.1
+  MountainMaxHeight: 0.5
+  resetMountain: 1
+  FillNiche_Sheep: {fileID: 11400000, guid: 2a3e3884fc144134baebddc08eb3bd66, type: 2}
+  FillSheep_ParentTransform: {fileID: 1755166669}
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -452,6 +517,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432389387}
+  - {fileID: 1662689119}
+  - {fileID: 1755166669}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

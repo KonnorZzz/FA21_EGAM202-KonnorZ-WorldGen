@@ -76,6 +76,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.Mountain();
         }
+        if (GUILayout.Button("Sheep"))
+        {
+            squitch.FillSheep();
+        }
 
     }
 }

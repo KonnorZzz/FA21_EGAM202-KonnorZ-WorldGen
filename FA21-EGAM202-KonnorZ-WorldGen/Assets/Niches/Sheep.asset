@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ed1ba7ac2c142b45a71205841ceefcc, type: 3}
-  m_Name: Crystal
+  m_Name: Sheep
   m_EditorClassIdentifier: 
-  NicheOccupant: {fileID: 5511249046684453372, guid: ee3aacd1a2e26ea44b8194806391339e, type: 3}
+  NicheOccupant: {fileID: 3123403212918601872, guid: 1d3e05689b294d644a24affee4403b1e, type: 3}
   MinX: 0
   MaxX: 1000
   MinZ: 0
   MaxZ: 1000
-  MinElev: 5.5
-  MaxElev: 6.5
-  ProbabilityPerMeter: 0.1
+  MinElev: 6.5
+  MaxElev: 7.5
+  ProbabilityPerMeter: 1
