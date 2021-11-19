@@ -329,6 +329,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1126225468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126225469}
+  m_Layer: 0
+  m_Name: AllTree
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126225469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126225468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 109.747635, y: 51.954697, z: 235.75859}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2000841084}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1662689118
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +491,8 @@ MonoBehaviour:
   resetMountain: 1
   FillNiche_Sheep: {fileID: 11400000, guid: 2a3e3884fc144134baebddc08eb3bd66, type: 2}
   FillSheep_ParentTransform: {fileID: 1755166669}
+  FillNiche_Tree: {fileID: 11400000, guid: 4f7d58ba2631a6e40b69128140d30cc5, type: 2}
+  FillTree_ParentTransform: {fileID: 1126225469}
 --- !u!154 &2000841082
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -519,6 +551,7 @@ Transform:
   - {fileID: 432389387}
   - {fileID: 1662689119}
   - {fileID: 1755166669}
+  - {fileID: 1126225469}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

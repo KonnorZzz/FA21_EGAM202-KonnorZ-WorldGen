@@ -80,6 +80,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.FillSheep();
         }
+        if (GUILayout.Button("Tree"))
+        {
+            squitch.FillTree();
+        }
 
     }
 }

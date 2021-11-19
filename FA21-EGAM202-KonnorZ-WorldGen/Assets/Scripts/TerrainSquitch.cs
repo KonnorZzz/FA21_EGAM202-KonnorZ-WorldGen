@@ -82,6 +82,10 @@ public class TerrainSquitch : MonoBehaviour
     public Niche FillNiche_Sheep;
     public Transform FillSheep_ParentTransform;
 
+    [Header("Fill Tree")]
+    public Niche FillNiche_Tree;
+    public Transform FillTree_ParentTransform;
+
 
 
     public void GenerateHills()
@@ -571,6 +575,43 @@ public class TerrainSquitch : MonoBehaviour
         }
     }
 
+    public void FillTree()
+    {
+        Terrain thisTerrain = GetComponent<Terrain>();
+        if (thisTerrain == null)
+        {
+            throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
+        }
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
+
+        float heightMapWidthWorld, heightMapLengthWorld;
+        heightMapWidthWorld = heightMapWidth * thisTerrain.terrainData.heightmapScale.x;
+        heightMapLengthWorld = heightMapLength * thisTerrain.terrainData.heightmapScale.z;
+
+        Vector3 worldPos;
+        worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
+        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
+        {
+            for (worldPos.x = 0; worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
+            {
+                worldPos.y = thisTerrain.SampleHeight(worldPos);
+                if (worldPos.x > FillNiche_Tree.MinX && worldPos.x < FillNiche_Tree.MaxX &&
+                    worldPos.z > FillNiche_Tree.MinZ && worldPos.z < FillNiche_Tree.MaxZ &&
+                    worldPos.y > FillNiche_Tree.MinElev && worldPos.y < FillNiche_Tree.MaxElev)
+                {
+                    if (Random.value < FillNiche_Tree.ProbabilityPerMeter)
+                    {
+                        Instantiate(FillNiche_Tree.NicheOccupant, worldPos, Quaternion.identity, FillTree_ParentTransform);
+                    }
+                }
+            }
+        }
+    }
+
     public void MakeItSnow()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
@@ -620,15 +661,17 @@ public class TerrainSquitch : MonoBehaviour
         SetElevation_Elevation = 0;
         SetElevation();
 
-        ManySteps_MaxStepHeight = 0.08f;
-        ManySteps_NSteps = 200;
+        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_NSteps = 100;
         ManySteps();
 
-        smoothAmount = 20;
-        SmoothFunction();
+        //smoothAmount = 20;
+        //SmoothFunction();
 
         InstallWater();
         FillNiche();
+        FillSheep();
+        FillTree();
     }
 
     public void TriangularColumn()
