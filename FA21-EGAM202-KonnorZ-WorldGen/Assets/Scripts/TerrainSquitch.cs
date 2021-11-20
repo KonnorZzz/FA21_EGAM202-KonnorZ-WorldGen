@@ -14,6 +14,24 @@ public class TerrainSquitch : MonoBehaviour
             CityofKonnor();
             GetComponent<UnityEngine.AI.NavMeshSurface>().BuildNavMesh();
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            DeleteWater();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            DeleteSheep();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            DeleteTree();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            DeleteNiche();
+        }
+
     }
 
 
