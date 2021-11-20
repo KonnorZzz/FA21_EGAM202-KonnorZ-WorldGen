@@ -88,6 +88,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.MakeItFancy();
         }
+        if (GUILayout.Button("DeleteWater"))
+        {
+            squitch.DeleteWater();
+        }
 
     }
 }

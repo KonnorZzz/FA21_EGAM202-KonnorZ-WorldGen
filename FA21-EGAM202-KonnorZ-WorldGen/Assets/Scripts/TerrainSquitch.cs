@@ -15,8 +15,10 @@ public class TerrainSquitch : MonoBehaviour
             GetComponent<UnityEngine.AI.NavMeshSurface>().BuildNavMesh();
         }
     }
+
+
     [Header("Pip Settings")]
-    
+
     //Pip Setting
     public int Pip_X;
     public int Pip_Z;
@@ -113,7 +115,7 @@ public class TerrainSquitch : MonoBehaviour
         float[,] GenerateHeights()
         {
             float[,] heights = new float[width, height];
-            for(int x = 0; x < width; x++)
+            for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
@@ -122,20 +124,20 @@ public class TerrainSquitch : MonoBehaviour
             }
             return heights;
         }
-        float CalculateHeight (int x, int y)
+        float CalculateHeight(int x, int y)
         {
             float xCoord = (float)x / width * scale;
             float yCoord = (float)y / height * scale;
             return Mathf.PerlinNoise(xCoord, yCoord);
         }
-        
+
     }
-    
+
 
     public void Pip()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
-        if(thisTerrain == null)
+        if (thisTerrain == null)
         {
             throw new System.Exception("TerrainSquitch requires a Terrain. Please add a Terrain to " + "and length = " + gameObject.name);
         }
@@ -171,7 +173,7 @@ public class TerrainSquitch : MonoBehaviour
 
         Vector3 mapPos;
         mapPos.z = 0;
-        for(mapPos.z = 0;mapPos.z < heightMapLength; mapPos.z++)
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
         {
             for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
@@ -198,17 +200,17 @@ public class TerrainSquitch : MonoBehaviour
         heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
 
         Vector3 mapPos;
-        for(mapPos.z = 0;mapPos.z < heightMapLength; mapPos.z++)
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
         {
-            for(mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
+            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
-                 if(mapPos.z > Box_zMin && mapPos.z < Box_zMax &&
-                    mapPos.x > Box_xMin && mapPos.x < Box_xMax)
-                 {
+                if (mapPos.z > Box_zMin && mapPos.z < Box_zMax &&
+                   mapPos.x > Box_xMin && mapPos.x < Box_xMax)
+                {
                     heights[(int)mapPos.z, (int)mapPos.x] = Box_Height;
-                 }
+                }
             }
-           
+
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);
     }
@@ -261,9 +263,9 @@ public class TerrainSquitch : MonoBehaviour
         {
             for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
-                if ((mapPos.z - Cyl_z) * (mapPos.z - Cyl_z)+(mapPos.x - Cyl_x)*(mapPos.x - Cyl_x) <= r * r)
+                if ((mapPos.z - Cyl_z) * (mapPos.z - Cyl_z) + (mapPos.x - Cyl_x) * (mapPos.x - Cyl_x) <= r * r)
                 {
-                    heights[(int)mapPos.z,(int)mapPos.x] = Cyl_Height;
+                    heights[(int)mapPos.z, (int)mapPos.x] = Cyl_Height;
                 }
             }
 
@@ -292,7 +294,7 @@ public class TerrainSquitch : MonoBehaviour
         for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
         {
             heightAtThisZ = Random.value;
-            for(mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
+            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
                 heights[(int)mapPos.z, (int)mapPos.x] = heightAtThisZ;
             }
@@ -326,7 +328,7 @@ public class TerrainSquitch : MonoBehaviour
             {
                 heights[(int)mapPos.z, (int)mapPos.x] = heightAtThisZ;
             }
-            
+
 
         }
         thisTerrain.terrainData.SetHeights(0, 0, heights);
@@ -360,13 +362,13 @@ public class TerrainSquitch : MonoBehaviour
         float stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
         //stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
 
-        for(mapPos.z = 0;mapPos.z < heightMapLength; mapPos.z++)
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
         {
-            for (mapPos.x = 0;mapPos.x < heightMapWidth; mapPos.x++)
+            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
                 if (dividingPlane.GetSide(mapPos))
                 {
-                    heights[(int)mapPos.z,(int)mapPos.x] += stepSize;
+                    heights[(int)mapPos.z, (int)mapPos.x] += stepSize;
                 }
             }
         }
@@ -407,7 +409,7 @@ public class TerrainSquitch : MonoBehaviour
 
             for (mapPos.x = 0; mapPos.x < heightMapLength; mapPos.x++)
             {
-                for(mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
+                for (mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
                 {
                     if (dividingPlane.GetSide(mapPos))
                     {
@@ -454,20 +456,20 @@ public class TerrainSquitch : MonoBehaviour
         Debug.Log("This Terrain has a heightMap with width = " + heightMapWidth + "and length = " + heightMapLength);
 
         terrainData = Terrain.activeTerrain.terrainData;
-        float[,] heights = thisTerrain.terrainData.GetHeights(0,0,terrainData.heightmapResolution, terrainData.heightmapResolution);
+        float[,] heights = thisTerrain.terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
 
         heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
 
-        for(int s = 0; s < smoothAmount; s++)
+        for (int s = 0; s < smoothAmount; s++)
         {
-            for(int y = 0;y < heightMapWidth; y++)
+            for (int y = 0; y < heightMapWidth; y++)
             {
-                for(int x = 0; x < heightMapLength; x++)
+                for (int x = 0; x < heightMapLength; x++)
                 {
                     float avgHeight = heights[x, y];
                     List<Vector2> neighbours = GenerateNeighbours(new Vector2(x, y), heightMapWidth, heightMapLength);
 
-                    foreach(Vector2 n in neighbours)
+                    foreach (Vector2 n in neighbours)
                     {
                         avgHeight += heights[(int)n.x, (int)n.y];
                     }
@@ -497,14 +499,14 @@ public class TerrainSquitch : MonoBehaviour
 
         Vector3 worldPos;
         worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
-        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld;worldPos.z += WaterPrefabSize)
+        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
         {
-            for(worldPos.x=0;worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
+            for (worldPos.x = 0; worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
             {
                 worldPos.y = thisTerrain.SampleHeight(worldPos);
-                if(worldPos.y < InstallWater_WaterLevel)
+                if (worldPos.y < InstallWater_WaterLevel)
                 {
-                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel,worldPos.z), Quaternion. identity,InstallWater_Parent);
+                    Instantiate(WaterPrefab, new Vector3(worldPos.x, InstallWater_WaterLevel, worldPos.z), Quaternion.identity, InstallWater_Parent);
                 }
             }
         }
@@ -529,16 +531,16 @@ public class TerrainSquitch : MonoBehaviour
 
         Vector3 worldPos;
         worldPos = new Vector3(0, InstallWater_WaterLevel, 0);
-        for(worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
+        for (worldPos.z = 0; worldPos.z < heightMapLengthWorld; worldPos.z += WaterPrefabSize)
         {
-            for (worldPos.x = 0;worldPos.x < heightMapWidthWorld;worldPos.x += WaterPrefabSize)
+            for (worldPos.x = 0; worldPos.x < heightMapWidthWorld; worldPos.x += WaterPrefabSize)
             {
                 worldPos.y = thisTerrain.SampleHeight(worldPos);
-                if(worldPos.x > FillNiche_Niche.MinX && worldPos.x < FillNiche_Niche.MaxX &&
+                if (worldPos.x > FillNiche_Niche.MinX && worldPos.x < FillNiche_Niche.MaxX &&
                     worldPos.z > FillNiche_Niche.MinZ && worldPos.z < FillNiche_Niche.MaxZ &&
                     worldPos.y > FillNiche_Niche.MinElev && worldPos.y < FillNiche_Niche.MaxElev)
                 {
-                    if(Random.value < FillNiche_Niche.ProbabilityPerMeter)
+                    if (Random.value < FillNiche_Niche.ProbabilityPerMeter)
                     {
                         Instantiate(FillNiche_Niche.NicheOccupant, worldPos, Quaternion.identity, FillNiche_ParentTransform);
                     }
@@ -650,11 +652,11 @@ public class TerrainSquitch : MonoBehaviour
         const int NTERRAINLAYERS = 3;
 
         float[,,] alphaAtMapPos = new float[alphaMapSize, alphaMapSize, NTERRAINLAYERS];
-        Vector3 mapPos; 
+        Vector3 mapPos;
         mapPos.z = 0;
         for (mapPos.z = 0; mapPos.z < alphaMapSize; mapPos.z++)
         {
-            for(mapPos.x = 0; mapPos.x < alphaMapSize; mapPos.x++)
+            for (mapPos.x = 0; mapPos.x < alphaMapSize; mapPos.x++)
             {
                 if (heights[(int)mapPos.z, (int)mapPos.x] < .3f)
                 {
@@ -674,7 +676,7 @@ public class TerrainSquitch : MonoBehaviour
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 1.0f;
                 }
-                
+
             }
         }
         thisTerrain.terrainData.SetAlphamaps(0, 0, alphaAtMapPos);
@@ -702,7 +704,7 @@ public class TerrainSquitch : MonoBehaviour
 
     public void TriangularColumn()
     {
-        
+
         float[,] GetHeightMap()
         {
             if (!resetTerrain)
@@ -776,9 +778,9 @@ public class TerrainSquitch : MonoBehaviour
         float maxDistance = Vector2.Distance(new Vector2(0, 0), new Vector2(heightMapWidth, heightMapLength));
         for (int y = 0; y < heightMapLength; y++)
         {
-            for(int x = 0; x < heightMapWidth; x++)
+            for (int x = 0; x < heightMapWidth; x++)
             {
-                if(!(x == peak.x && y == peak.z))
+                if (!(x == peak.x && y == peak.z))
                 {
                     float distanceToPeak = Vector2.Distance(peakLocation, new Vector2(x, y));
                     heightMap[x, y] = peak.y - (distanceToPeak / maxDistance);
@@ -788,5 +790,13 @@ public class TerrainSquitch : MonoBehaviour
         terrainData.SetHeights(0, 0, heightMap);
     }
 
+    public void DeleteWater()
+    {
+        for (int w = 0; w <100;w++)
+        {
+            DestroyImmediate(InstallWater_Parent.GetChild(0).gameObject);
 
+        }
+
+    }
 }
