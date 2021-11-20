@@ -17,6 +17,6 @@ MonoBehaviour:
   MaxX: 1000
   MinZ: 0
   MaxZ: 1000
-  MinElev: 6.5
-  MaxElev: 7.5
-  ProbabilityPerMeter: 1
+  MinElev: 40
+  MaxElev: 50
+  ProbabilityPerMeter: 0.1

@@ -123,6 +123,133 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &604401712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604401716}
+  - component: {fileID: 604401715}
+  - component: {fileID: 604401714}
+  - component: {fileID: 604401713}
+  m_Layer: 0
+  m_Name: NewTerrain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
+--- !u!114 &604401713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604401712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc4f65770c43d94583467c3bb46b389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pip_X: 0
+  Pip_Z: 0
+  Pip_Height: 0
+  SetElevation_Elevation: 0
+  Box_zMin: 30
+  Box_zMax: 100
+  Box_xMin: 30
+  Box_xMax: 100
+  Box_Height: 0
+  Cyl_x: 0
+  Cyl_y: 0
+  Cyl_z: 0
+  r: 0
+  Cyl_Height: 0
+  RandomWalk_StartingElevation: 0
+  RandomWalk_MaxStepSize: 0
+  SingleStep_MaxStepSize: 0
+  ManySteps_MaxStepHeight: 0.1
+  ManySteps_NSteps: 200
+  smoothAmount: 2
+  terrainData: {fileID: 15600000, guid: 7f24c4d2725066346b14d4f934ec1f30, type: 2}
+  InstallWater_WaterLevel: 0
+  WaterPrefab: {fileID: 0}
+  WaterPrefabSize: 0
+  InstallWater_Parent: {fileID: 0}
+  FillNiche_Niche: {fileID: 0}
+  FillNiche_ParentTransform: {fileID: 0}
+  scale: 55
+  MinHeight: 10
+  MaxHeight: 50
+  resetTerrain: 1
+  MoutainMinHeight: 0.1
+  MountainMaxHeight: 0.5
+  resetMountain: 1
+  FillNiche_Sheep: {fileID: 0}
+  FillSheep_ParentTransform: {fileID: 0}
+  FillNiche_Tree: {fileID: 0}
+  FillTree_ParentTransform: {fileID: 0}
+--- !u!154 &604401714
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604401712}
+  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_TerrainData: {fileID: 15600000, guid: 7f24c4d2725066346b14d4f934ec1f30, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &604401715
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604401712}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 7f24c4d2725066346b14d4f934ec1f30, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+--- !u!4 &604401716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604401712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,26 +518,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc4f65770c43d94583467c3bb46b389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pip_X: 100
-  Pip_Z: 100
-  Pip_Height: 0
-  SetElevation_Elevation: -3
+  Pip_X: 10
+  Pip_Z: 10
+  Pip_Height: 5
+  SetElevation_Elevation: 0
   Box_zMin: 0
   Box_zMax: 10
   Box_xMin: 20
   Box_xMax: 30
-  Box_Height: 0
+  Box_Height: 0.3
   Cyl_x: 10
   Cyl_y: 10
   Cyl_z: 10
   r: 10
   Cyl_Height: 0
-  RandomWalk_StartingElevation: 0
-  RandomWalk_MaxStepSize: 0
-  SingleStep_MaxStepHeight: 0
-  ManySteps_MaxStepHeight: 10
-  ManySteps_NSteps: 100
-  smoothAmount: 20
+  RandomWalk_StartingElevation: 2
+  RandomWalk_MaxStepSize: 0.02
+  SingleStep_MaxStepSize: 1
+  ManySteps_MaxStepHeight: 0.08
+  ManySteps_NSteps: 300
+  smoothAmount: 5
   terrainData: {fileID: 15600000, guid: c4dd08687eff8024880b5a6d5c5912b9, type: 2}
   InstallWater_WaterLevel: 3
   WaterPrefab: {fileID: 8855492497676643094, guid: 5ff7245ac60194d49832f2d03a69e935, type: 3}
@@ -418,12 +545,7 @@ MonoBehaviour:
   InstallWater_Parent: {fileID: 885200934}
   FillNiche_Niche: {fileID: 11400000, guid: f4ac122566c6d314f9f5d2ad3d56ba1c, type: 2}
   FillNiche_ParentTransform: {fileID: 2129729029}
-  depth: 20
-  width: 513
-  height: 513
-  scale: 35
-  offsetX: 7838.07
-  offsetY: 407.1925
+  scale: 10
   MinHeight: 100
   MaxHeight: 300
   resetTerrain: 1

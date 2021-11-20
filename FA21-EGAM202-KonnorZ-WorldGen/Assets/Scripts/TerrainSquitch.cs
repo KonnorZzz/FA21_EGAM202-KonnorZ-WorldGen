@@ -51,7 +51,7 @@ public class TerrainSquitch : MonoBehaviour
     public float RandomWalk_MaxStepSize;
 
     [Header("Single Step Settings")]
-    public float SingleStep_MaxStepHeight;
+    public float SingleStep_MaxStepSize;
 
     [Header("Many Step Up Settings")]
     public float ManySteps_MaxStepHeight;
@@ -71,13 +71,10 @@ public class TerrainSquitch : MonoBehaviour
     public Niche FillNiche_Niche;
     public Transform FillNiche_ParentTransform;
 
-    [Header("Terrain Generator")]
-    public int depth = 20;
-    public int width = 256;
-    public int height = 256;
-    public float scale = 20f;
-    public float offsetX;
-    public float offsetY;
+    [Header("Hill of landscape")]
+
+    public float scale;
+
 
     [Header("Triangular column")]
     public float MinHeight = 10.0f;
@@ -101,33 +98,38 @@ public class TerrainSquitch : MonoBehaviour
 
     public void GenerateHills()
     {
-        offsetX = Random.Range(0f, 9999f);
-        offsetY = Random.Range(0f, 9999f);
         Terrain thisTerrain = GetComponent<Terrain>();
-        thisTerrain.terrainData = GenerateTerrain(thisTerrain.terrainData);
-        TerrainData GenerateTerrain(TerrainData terrainData)
+        if (thisTerrain == null)
+            throw new System.Exception("TerrainSquitch need a terrain, please add a terrain");
+
+        int heightMapWidth, heightMapLength;
+        heightMapWidth = thisTerrain.terrainData.heightmapResolution;
+        heightMapLength = thisTerrain.terrainData.heightmapResolution;
+        Debug.Log("This terrain has a heightMap with width = " + heightMapWidth + " and length = " + heightMapLength);
+
+        float[,] heights;
+        heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
+
+        Vector3 mapPos = Vector3.zero;
+
+
+
+        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
         {
-            terrainData.heightmapResolution = width + 1;
-            terrainData.size = new Vector3(width, depth, height);
-            terrainData.SetHeights(0, 0, GenerateHeights());
-            return terrainData;
-        }
-        float[,] GenerateHeights()
-        {
-            float[,] heights = new float[width, height];
-            for (int x = 0; x < width; x++)
+            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
             {
-                for (int y = 0; y < height; y++)
-                {
-                    heights[x, y] = CalculateHeight(x, y);
-                }
+
+                heights[(int)mapPos.z, (int)mapPos.x] = CalculateHeight(mapPos.z, mapPos.x);
+
             }
-            return heights;
         }
-        float CalculateHeight(int x, int y)
+        thisTerrain.terrainData.SetHeights(0, 0, heights);
+
+
+        float CalculateHeight(float x, float y)
         {
-            float xCoord = (float)x / width * scale;
-            float yCoord = (float)y / height * scale;
+            float xCoord = (float)x / heightMapWidth * scale;
+            float yCoord = (float)y / heightMapLength * scale;
             return Mathf.PerlinNoise(xCoord, yCoord);
         }
 
@@ -355,16 +357,16 @@ public class TerrainSquitch : MonoBehaviour
 
         Plane dividingPlane;
         Vector3 planePoint, planeNormal;
-        planePoint = new Vector3(Random.Range(0, heightMapWidth), Random.Range(0, 100), Random.Range(0, heightMapLength));
+        planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
         planeNormal = Random.onUnitSphere;
 
         dividingPlane = new Plane(planeNormal, planePoint);
-        float stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
+        float stepSize = Random.Range(-SingleStep_MaxStepSize, SingleStep_MaxStepSize);
         //stepSize = Random.Range(-SingleStep_MaxStepHeight, SingleStep_MaxStepHeight);
 
-        for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
+        for (mapPos.x = 0; mapPos.x < heightMapLength; mapPos.x++)
         {
-            for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
+            for (mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
             {
                 if (dividingPlane.GetSide(mapPos))
                 {
@@ -372,6 +374,8 @@ public class TerrainSquitch : MonoBehaviour
                 }
             }
         }
+
+        
         thisTerrain.terrainData.SetHeights(0, 0, heights);
 
     }
@@ -401,15 +405,16 @@ public class TerrainSquitch : MonoBehaviour
 
         for (int stepCount = 0; stepCount < ManySteps_NSteps; stepCount++)
         {
-            planePoint = new Vector3(Random.Range(0, heightMapWidth), 0, Random.Range(0, heightMapLength));
+            planePoint = new Vector3(Random.Range(0, heightMapWidth), Random.Range(0, 100), Random.Range(0, heightMapLength));
             planeNormal = Random.onUnitSphere;
             dividingPlane = new Plane(planeNormal, planePoint);
 
+
             stepSize = Random.Range(-ManySteps_MaxStepHeight, ManySteps_MaxStepHeight);
 
-            for (mapPos.x = 0; mapPos.x < heightMapLength; mapPos.x++)
+            for (mapPos.z = 0; mapPos.z < heightMapLength; mapPos.z++)
             {
-                for (mapPos.z = 0; mapPos.z < heightMapWidth; mapPos.z++)
+                for (mapPos.x = 0; mapPos.x < heightMapWidth; mapPos.x++)
                 {
                     if (dividingPlane.GetSide(mapPos))
                     {
@@ -616,7 +621,7 @@ public class TerrainSquitch : MonoBehaviour
                 {
                     if (Random.value < FillNiche_Tree.ProbabilityPerMeter)
                     {
-                        Instantiate(FillNiche_Tree.NicheOccupant, worldPos, Quaternion.identity, FillTree_ParentTransform);
+                        Instantiate(FillNiche_Tree.NicheOccupant, worldPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), FillTree_ParentTransform);
                     }
                 }
             }
@@ -685,14 +690,14 @@ public class TerrainSquitch : MonoBehaviour
 
     public void CityofKonnor()
     {
-        SetElevation_Elevation = -0.5f;
+        SetElevation_Elevation = 0;
         SetElevation();
 
-        ManySteps_MaxStepHeight = 10f;
-        ManySteps_NSteps = 100;
+        ManySteps_MaxStepHeight = 0.08f;
+        ManySteps_NSteps = 300;
         ManySteps();
 
-        smoothAmount = 1;
+        smoothAmount = 5;
         SmoothFunction();
 
         InstallWater();
