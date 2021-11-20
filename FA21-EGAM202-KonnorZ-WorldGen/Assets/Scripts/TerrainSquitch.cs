@@ -653,8 +653,9 @@ public class TerrainSquitch : MonoBehaviour
         const int SAND = 0;
         const int ROCK = 1;
         const int FOREST = 2;
+        const int SNOW = 3;
 
-        const int NTERRAINLAYERS = 3;
+        const int NTERRAINLAYERS = 4;
 
         float[,,] alphaAtMapPos = new float[alphaMapSize, alphaMapSize, NTERRAINLAYERS];
         Vector3 mapPos;
@@ -663,23 +664,33 @@ public class TerrainSquitch : MonoBehaviour
         {
             for (mapPos.x = 0; mapPos.x < alphaMapSize; mapPos.x++)
             {
-                if (heights[(int)mapPos.z, (int)mapPos.x] < .3f)
+                if (heights[(int)mapPos.z, (int)mapPos.x] < .15f)
                 {
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 1.0f;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SNOW] = 0;
                 }
-                if (heights[(int)mapPos.z, (int)mapPos.x] >= 0.3f && heights[(int)mapPos.z, (int)mapPos.x] <= 0.5f)
+                if (heights[(int)mapPos.z, (int)mapPos.x] >= 0.15f && heights[(int)mapPos.z, (int)mapPos.x] <= 0.25f)  
                 {
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 0;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 1.0f;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SNOW] = 0;
                 }
-                if (heights[(int)mapPos.z, (int)mapPos.x] > .5f)
+                if (heights[(int)mapPos.z, (int)mapPos.x] >= 0.25f && heights[(int)mapPos.z, (int)mapPos.x] <= 0.4f)  
                 {
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 0;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
                     alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 1.0f;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SNOW] = 0;
+                }
+                if (heights[(int)mapPos.z, (int)mapPos.x] > 0.4f)
+                {
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SNOW] = 1.0f;
                 }
 
             }
@@ -690,6 +701,13 @@ public class TerrainSquitch : MonoBehaviour
 
     public void CityofKonnor()
     {
+
+        //DeleteWater();
+        //DeleteTree();
+        //DeleteSheep();
+        //DeleteNiche();
+
+
         SetElevation_Elevation = 0;
         SetElevation();
 
