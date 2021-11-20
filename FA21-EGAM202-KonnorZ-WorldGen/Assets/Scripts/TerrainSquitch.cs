@@ -799,4 +799,36 @@ public class TerrainSquitch : MonoBehaviour
         }
 
     }
+    public void DeleteNiche()
+    {
+        for (int w = 0; w < 100; w++)
+        {
+            DestroyImmediate(FillNiche_ParentTransform.GetChild(0).gameObject);
+
+        }
+
+    }
+
+    public void DeleteSheep()
+    {
+        for (int w = 0; w < 100; w++)
+        {
+            DestroyImmediate(FillSheep_ParentTransform.GetChild(0).gameObject);
+
+        }
+
+    }
+
+    public void DeleteTree()
+    {
+        for (int w = 0; w < 100; w++)
+        {
+            DestroyImmediate(FillTree_ParentTransform.GetChild(0).gameObject);
+
+        }
+
+    }
+
+    
+
 }

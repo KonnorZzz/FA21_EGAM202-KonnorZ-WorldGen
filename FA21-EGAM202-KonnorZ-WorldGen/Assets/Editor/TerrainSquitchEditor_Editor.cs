@@ -92,6 +92,18 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.DeleteWater();
         }
+        if (GUILayout.Button("DeleteNiche"))
+        {
+            squitch.DeleteNiche();
+        }
+        if (GUILayout.Button("DeleteSheep"))
+        {
+            squitch.DeleteSheep();
+        }
+        if (GUILayout.Button("DeleteTree"))
+        {
+            squitch.DeleteTree();
+        }
 
     }
 }
