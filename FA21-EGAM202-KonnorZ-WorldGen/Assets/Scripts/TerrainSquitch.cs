@@ -132,7 +132,7 @@ public class TerrainSquitch : MonoBehaviour
     public Niche FillNiche_Niche;
     public Transform FillNiche_ParentTransform;
 
-    [Header("Hill of landscape")]
+    [Header("Landscape Hills")]
 
     public float scale;
 
@@ -157,7 +157,7 @@ public class TerrainSquitch : MonoBehaviour
 
 
 
-    public void GenerateHills()
+    public void LandscapeHills()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
         if (thisTerrain == null)

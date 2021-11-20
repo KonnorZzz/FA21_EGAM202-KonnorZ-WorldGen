@@ -68,9 +68,9 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.CityofKonnor();
         }
-        if (GUILayout.Button("Hill Generator"))
+        if (GUILayout.Button("Landscape Hills"))
         {
-            squitch.GenerateHills();
+            squitch.LandscapeHills();
         }
         if (GUILayout.Button("Triangular Column"))
         {
