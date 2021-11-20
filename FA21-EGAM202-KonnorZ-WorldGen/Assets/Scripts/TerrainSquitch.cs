@@ -31,6 +31,39 @@ public class TerrainSquitch : MonoBehaviour
         {
             DeleteNiche();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ManySteps();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            MakeItFancy();
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            InstallWater();
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            FillNiche();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            FillSheep();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            FillTree();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SetElevation();
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SmoothFunction();
+        }
+
 
     }
 
