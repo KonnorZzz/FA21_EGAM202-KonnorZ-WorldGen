@@ -37,6 +37,13 @@ public class TerrainSquitch : MonoBehaviour
         Box_xMax = 100;
     public float Box_Height;
 
+
+    [Header("HundredStairs")]
+    public int Number;
+    public int Width;
+    public float SHeight;
+
+
     [Header("ExtrudeCylinder")]
     public int Cyl_x;
     public int Cyl_y;
@@ -242,6 +249,19 @@ public class TerrainSquitch : MonoBehaviour
         Box_xMax = 30;
         Box_Height = .3f;
         ExtrudeBox();
+    }
+
+    public void HundredStairs()
+    {
+        for(int h = 0; h < Number; h++)
+        {
+            Box_zMin = 0;
+            Box_zMax = Width;
+            Box_xMin = h * 3;
+            Box_xMax = h * 3 + 5;
+            Box_Height = h * SHeight;
+            ExtrudeBox();
+        }
     }
 
     public void ExtrudeCylinder()

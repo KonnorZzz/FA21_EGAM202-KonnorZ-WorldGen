@@ -28,6 +28,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.ThreeStairs();
         }
+        if (GUILayout.Button("Hundred Stairs"))
+        {
+            squitch.HundredStairs();
+        }
         if (GUILayout.Button("Extrude Cylinder"))
         {
             squitch.ExtrudeCylinder();
