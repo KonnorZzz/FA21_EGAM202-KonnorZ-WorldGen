@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed1ba7ac2c142b45a71205841ceefcc, type: 3}
   m_Name: Sheep
   m_EditorClassIdentifier: 
-  NicheOccupant: {fileID: 3123403212918601872, guid: 1d3e05689b294d644a24affee4403b1e, type: 3}
+  NicheOccupant: {fileID: 1728152942917597729, guid: 3e7c24ff32eb90e4c85815f1fd4d6e1d, type: 3}
   MinX: 0
   MaxX: 1000
   MinZ: 0

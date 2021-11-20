@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed1ba7ac2c142b45a71205841ceefcc, type: 3}
   m_Name: Crystal
   m_EditorClassIdentifier: 
-  NicheOccupant: {fileID: 5511249046684453372, guid: ee3aacd1a2e26ea44b8194806391339e, type: 3}
+  NicheOccupant: {fileID: 674546534344082301, guid: 02330cb555088024ea54832a270fc9df, type: 3}
   MinX: 0
   MaxX: 1000
   MinZ: 0
