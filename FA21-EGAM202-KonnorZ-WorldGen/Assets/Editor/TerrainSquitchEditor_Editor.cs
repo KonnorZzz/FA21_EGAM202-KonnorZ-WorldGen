@@ -86,7 +86,7 @@ public class TerrainSquitchEditor : Editor
         }
         if (GUILayout.Button("Make it Fancy"))
         {
-            squitch.MakeItRock();
+            squitch.MakeItFancy();
         }
 
     }

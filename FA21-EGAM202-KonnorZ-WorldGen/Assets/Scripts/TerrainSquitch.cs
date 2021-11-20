@@ -6,6 +6,15 @@ using UnityEditor;
 
 public class TerrainSquitch : MonoBehaviour
 {
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            CityofKonnor();
+            GetComponent<UnityEngine.AI.NavMeshSurface>().BuildNavMesh();
+        }
+    }
     [Header("Pip Settings")]
     
     //Pip Setting
@@ -612,7 +621,7 @@ public class TerrainSquitch : MonoBehaviour
         }
     }
 
-    public void MakeItRock()
+    public void MakeItFancy()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
         if (thisTerrain == null)
@@ -677,17 +686,18 @@ public class TerrainSquitch : MonoBehaviour
         SetElevation_Elevation = -0.5f;
         SetElevation();
 
-        ManySteps_MaxStepHeight = 5f;
+        ManySteps_MaxStepHeight = 10f;
         ManySteps_NSteps = 100;
         ManySteps();
 
-        //smoothAmount = 20;
-        //SmoothFunction();
+        smoothAmount = 1;
+        SmoothFunction();
 
         InstallWater();
         FillNiche();
         FillSheep();
         FillTree();
+        MakeItFancy();
     }
 
     public void TriangularColumn()
