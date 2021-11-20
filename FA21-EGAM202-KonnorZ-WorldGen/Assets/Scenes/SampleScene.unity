@@ -453,7 +453,7 @@ MonoBehaviour:
   Pip_X: 100
   Pip_Z: 100
   Pip_Height: 0
-  SetElevation_Elevation: 0
+  SetElevation_Elevation: -3
   Box_zMin: 0
   Box_zMax: 10
   Box_xMin: 20
@@ -467,7 +467,7 @@ MonoBehaviour:
   RandomWalk_StartingElevation: 0
   RandomWalk_MaxStepSize: 0
   SingleStep_MaxStepHeight: 0
-  ManySteps_MaxStepHeight: 0.3
+  ManySteps_MaxStepHeight: 10
   ManySteps_NSteps: 100
   smoothAmount: 20
   terrainData: {fileID: 15600000, guid: c4dd08687eff8024880b5a6d5c5912b9, type: 2}
@@ -484,7 +484,7 @@ MonoBehaviour:
   offsetX: 7838.07
   offsetY: 407.1925
   MinHeight: 100
-  MaxHeight: 500
+  MaxHeight: 300
   resetTerrain: 1
   MoutainMinHeight: 0.1
   MountainMaxHeight: 0.5

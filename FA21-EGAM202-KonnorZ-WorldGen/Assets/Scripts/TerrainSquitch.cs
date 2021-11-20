@@ -612,7 +612,7 @@ public class TerrainSquitch : MonoBehaviour
         }
     }
 
-    public void MakeItSnow()
+    public void MakeItRock()
     {
         Terrain thisTerrain = GetComponent<Terrain>();
         if (thisTerrain == null)
@@ -627,41 +627,57 @@ public class TerrainSquitch : MonoBehaviour
 
         int alphaMapSize;
         alphaMapSize = thisTerrain.terrainData.alphamapResolution;
-        Debug.Log("This Terrain has a heightMap with width = " + alphaMapSize + "and length = " + alphaMapSize);
+        Debug.Log("This Terrain has a alphaMap with width = " + alphaMapSize + "and length = " + alphaMapSize);
 
         terrainData = Terrain.activeTerrain.terrainData;
         float[,] heights = thisTerrain.terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
 
         heights = thisTerrain.terrainData.GetHeights(0, 0, heightMapWidth, heightMapLength);
 
-        const int GRASS = 0;
-        const int DANS = 1;
-        const int SNOW = 2;
+        const int SAND = 0;
+        const int ROCK = 1;
+        const int FOREST = 2;
 
         const int NTERRAINLAYERS = 3;
 
         float[,,] alphaAtMapPos = new float[alphaMapSize, alphaMapSize, NTERRAINLAYERS];
-        Vector3 mapPos;
+        Vector3 mapPos; 
         mapPos.z = 0;
         for (mapPos.z = 0; mapPos.z < alphaMapSize; mapPos.z++)
         {
             for(mapPos.x = 0; mapPos.x < alphaMapSize; mapPos.x++)
             {
-                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
-                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
-                alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, GRASS] = 0.33f;
+                if (heights[(int)mapPos.z, (int)mapPos.x] < .3f)
+                {
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 1.0f;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 0;
+                }
+                if (heights[(int)mapPos.z, (int)mapPos.x] >= 0.3f && heights[(int)mapPos.z, (int)mapPos.x] <= 0.5f)
+                {
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 1.0f;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 0;
+                }
+                if (heights[(int)mapPos.z, (int)mapPos.x] > .5f)
+                {
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, SAND] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, ROCK] = 0;
+                    alphaAtMapPos[(int)mapPos.z, (int)mapPos.x, FOREST] = 1.0f;
+                }
+                
             }
         }
-        thisTerrain.terrainData.SetHeights(0, 0, heights);
+        thisTerrain.terrainData.SetAlphamaps(0, 0, alphaAtMapPos);
 
     }
 
     public void CityofKonnor()
     {
-        SetElevation_Elevation = 0;
+        SetElevation_Elevation = -0.5f;
         SetElevation();
 
-        ManySteps_MaxStepHeight = 0.3f;
+        ManySteps_MaxStepHeight = 5f;
         ManySteps_NSteps = 100;
         ManySteps();
 

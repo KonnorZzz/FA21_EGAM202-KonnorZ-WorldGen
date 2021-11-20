@@ -84,6 +84,10 @@ public class TerrainSquitchEditor : Editor
         {
             squitch.FillTree();
         }
+        if (GUILayout.Button("Make it Fancy"))
+        {
+            squitch.MakeItRock();
+        }
 
     }
 }
