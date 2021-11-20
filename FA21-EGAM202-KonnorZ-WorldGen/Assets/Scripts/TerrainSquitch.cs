@@ -63,7 +63,10 @@ public class TerrainSquitch : MonoBehaviour
         {
             SmoothFunction();
         }
-
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Application.Quit();
+        }
 
     }
 
